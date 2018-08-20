@@ -7,6 +7,8 @@ import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
@@ -57,7 +59,7 @@ public class StudentController {
     }
 
     @PostMapping("/student")
-    public ResponseEntity<Object> createStudent(@RequestBody Student student) {
+    public ResponseEntity<Object> createStudent(@RequestBody @Valid Student student) {
         Student savedStudent = studentRepository.save(student);
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
@@ -68,7 +70,7 @@ public class StudentController {
     }
 
     @PutMapping("/student/{id}")
-    public ResponseEntity<Student> updateStudent(@RequestBody Student student, @PathVariable long id) {
+    public ResponseEntity<Student> updateStudent(@RequestBody @Valid Student student, @PathVariable long id) {
 
         Optional<Student> studentOptional = studentRepository.findById(id);
 
